@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: Promotion Management API
+  description: API for managing promotions
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /promotion:
+    get:
+      summary: Retrieve all promotions
+      responses:
+        '200':
+          description: A list of promotions
+    post:
+      summary: Create a new promotion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Promotion'
+      responses:
+        '201':
+          description: Successfully created
+  /promotion/{promotionId}:
+    get:
+      summary: Retrieve a promotion by ID
+      parameters:
+        - in: path
+          name: promotionId
+          required: true
+          description: ID of the promotion to retrieve
+          schema:
+            type: string
+            example: 65ebe67b0ffa1e4d6a24afa7
+      responses:
+        '200':
+          description: The promotion
+        '404':
+          description: Promotion not found
+    patch:
+      summary: Update a promotion
+      parameters:
+        - in: path
+          name: promotionId
+          required: true
+          description: ID of the promotion to update
+          schema:
+            type: string
+            example: 65f1ffac8fc34c99baef4783
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Promotion'
+      responses:
+        '200':
+          description: Successfully updated
+        '404':
+          description: Promotion not found
+    delete:
+      summary: Delete a promotion
+      parameters:
+        - in: path
+          name: promotionId
+          required: true
+          description: ID of the promotion to delete
+          schema:
+            type: string
+            example: 65f1ffac8fc34c99baef4783
+      responses:
+        '200':
+          description: Successfully deleted
+        '404':
+          description: Promotion not found
+components:
+  schemas:
+    Promotion:
+      type: object
+      properties:
+        PromotionID:
+          type: integer
+          example: 5
+        PromotionName:
+          type: string
+          example: Spring Sale TEST
+        PromotionType:
+          type: string
+          example: Discount
+        StartDate:
+          type: string
+          format: date-time
+          example: "2024-03-01T00:00:00Z"
+        EndDate:
+          type: string
+          format: date-time
+          example: "2024-03-15T23:59:59Z"
+        Description:
+          type: string
+          example: Get 20% off on all spring collection items.
+        IsActive:
+          type: boolean
+          example: true
+        CreatedAt:
+          type: string
+          format: date-time
+          example: "2024-02-15T12:00:00Z"
+        UpdatedAt:
+          type: string
+          format: date-time
+          example: "2024-02-20T08:30:00Z"
